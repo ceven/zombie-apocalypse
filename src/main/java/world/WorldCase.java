@@ -3,6 +3,8 @@ package world;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static world.WorldCase.CaseType.LIVING_CREATURE;
+
 public class WorldCase {
 
     private static final Logger LOG = LoggerFactory.getLogger(WorldCase.class);
@@ -13,8 +15,8 @@ public class WorldCase {
 
     }
 
-    public boolean mutate() throws IllegalStateException {
-        if (!CaseType.LIVING_CREATURE.equals(this.caseType)) {
+    public boolean mutate() {
+        if (!LIVING_CREATURE.equals(this.caseType)) {
             LOG.debug("Not mutating case {} as it is not of type {}", this.toString(), caseType.name());
             return false;
         }
@@ -23,6 +25,10 @@ public class WorldCase {
         LOG.debug("Mutating {} to {}", this.toString(), newCaseType);
         this.setCaseType(newCaseType);
         return true;
+    }
+
+    public boolean isLivingCreature() {
+        return LIVING_CREATURE == this.caseType;
     }
 
     public void setCaseType(CaseType caseType) {

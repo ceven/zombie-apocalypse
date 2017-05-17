@@ -28,17 +28,15 @@ public class ZombieApocalypse {
 
     public ApocalypseOutcome spreadVirus() {
         if (hasRun) {
-            throw new IllegalStateException("apocalypse.ZombieApocalypse has already run");
+            throw new IllegalStateException("ZombieApocalypse has already run");
         }
         hasRun = true;
         Queue<Zombie> zombieQueue = new LinkedList<>();
         zombieQueue.add(firstZombie);
         ApocalypseOutcome apocalypseOutcome = new ApocalypseOutcome();
         while (!zombieQueue.isEmpty()) {
-            //FIXME moves may not need to belong to zombie
             Zombie currentZombie = zombieQueue.poll();
-            moves.forEach(currentZombie::addMove);
-            List<Zombie> newZombies = currentZombie.explore(world);
+            List<Zombie> newZombies = currentZombie.explore(world, moves);
             zombieQueue.addAll(newZombies);
             apocalypseOutcome.add(currentZombie.getPosition(), currentZombie.getPoints());
         }
