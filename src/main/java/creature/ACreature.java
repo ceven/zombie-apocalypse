@@ -20,6 +20,6 @@ public abstract class ACreature {
 
     @Override
     public String toString() {
-        return "Creature with current position " + position.toString();
+        return position.toString();
     }
 }

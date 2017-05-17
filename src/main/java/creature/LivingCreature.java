@@ -13,9 +13,4 @@ public class LivingCreature extends ACreature {
         throw new UnsupportedOperationException("Cannot change position of a living creature");
     }
 
-    @Override
-    public String toString() {
-        return "Living creature with position " + getPosition().toString();
-    }
-
 }

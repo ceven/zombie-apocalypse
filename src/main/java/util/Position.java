@@ -1,5 +1,7 @@
 package util;
 
+import java.util.Objects;
+
 public final class Position {
 
     private int xCoordinate;
@@ -23,7 +25,24 @@ public final class Position {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(xCoordinate, yCoordinate);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || !(o instanceof Position)) {
+            return false;
+        }
+        Position other = (Position) o;
+        return this.getxCoordinate() == other.getxCoordinate() && this.getyCoordinate() == other.getyCoordinate();
+    }
+
+    @Override
     public String toString() {
-        return String.format("Position [%s, %s]", xCoordinate, yCoordinate);
+        return String.format("[%s, %s]", xCoordinate, yCoordinate);
     }
 }

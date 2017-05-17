@@ -9,22 +9,22 @@ import util.Position;
 import java.util.Optional;
 
 import static java.lang.String.format;
-import static world.WorldGridCase.CaseType.LIVING_CREATURE;
+import static world.WorldCase.CaseType.LIVING_CREATURE;
 
-public class WorldGrid {
+public class World {
 
-    private static final Logger LOG = LoggerFactory.getLogger(WorldGrid.class);
+    private static final Logger LOG = LoggerFactory.getLogger(World.class);
 
     private static final int MIN_COORDINATE = 0;
 
-    private final WorldGridCase[][] grid;
+    private final WorldCase[][] grid;
 
-    public WorldGrid(int xDimension, int yDimension) throws IllegalArgumentException {
-        validateGridDimensions(xDimension, yDimension);
-        grid = new WorldGridCase[xDimension][yDimension];
-        for (int i = 0; i < xDimension; i++) {
-            for (int j = 0; j < yDimension; j++) {
-                grid[i][j] = new WorldGridCase();
+    World(WorldBuilder worldBuilder) {
+        validateGridDimensions(worldBuilder.getWidth(), worldBuilder.getHeight());
+        grid = new WorldCase[worldBuilder.getWidth()][worldBuilder.getWidth()];
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                grid[i][j] = new WorldCase();
             }
         }
     }
@@ -36,14 +36,14 @@ public class WorldGrid {
     }
 
     public boolean addToWorld(final LivingCreature livingCreature) {
-        Optional<WorldGridCase> worldGridCase = getCase(livingCreature.getPosition());
+        Optional<WorldCase> worldGridCase = getCase(livingCreature.getPosition());
         if (worldGridCase.isPresent()) {
-            LOG.debug("Adding {} to world.", livingCreature.toString());
+            LOG.debug("Adding living creature to world. Position {}.", livingCreature.getPosition().toString());
             worldGridCase.get().setCaseType(LIVING_CREATURE);
             return true;
         } else {
-            LOG.error("Cannot add {} to world: position outside of world boundaries [{}x{}]. Skipping.",
-                    livingCreature.toString(), getXBoundary(), getYBoundary());
+            LOG.error("Cannot add creature to world: position {} outside of world boundaries [{}x{}]. Skipping.",
+                    livingCreature.getPosition().toString(), getXBoundary(), getYBoundary());
             return false;
         }
     }
@@ -52,11 +52,11 @@ public class WorldGrid {
         return x >= MIN_COORDINATE && y >= MIN_COORDINATE && x < getXBoundary() && y < getYBoundary();
     }
 
-    public Optional<WorldGridCase> getCase(final Position position) {
+    public Optional<WorldCase> getCase(final Position position) {
         return getCase(position.getxCoordinate(), position.getyCoordinate());
     }
 
-    private Optional<WorldGridCase> getCase(int x, int y) {
+    private Optional<WorldCase> getCase(int x, int y) {
         if (!validateCaseCoordinates(x, y)) {
             LOG.error("Coordinates [{}, {}] outside of grid boundary (dimensions {}x{})", x, y, getXBoundary(), getYBoundary());
             return Optional.empty();
@@ -73,7 +73,7 @@ public class WorldGrid {
     }
 
     public boolean visitLivingCreature(final Zombie zombie) {
-        Optional<WorldGridCase> zombieCase = getCase(zombie.getPosition());
+        Optional<WorldCase> zombieCase = getCase(zombie.getPosition());
         if (zombieCase.isPresent()) {
             return zombieCase.get().mutate();
         } else {

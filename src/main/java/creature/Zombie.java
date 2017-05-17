@@ -1,12 +1,12 @@
 package creature;
 
+import com.google.common.collect.ImmutableList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import util.Position;
-import world.WorldGrid;
+import world.World;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
@@ -20,20 +20,12 @@ public class Zombie extends ACreature {
 
     public Zombie(Position position) {
         super(position);
+        //FIXME may not add moves as zombie property
         moves = newArrayList();
     }
 
     public void addMove(final Move move) {
         moves.add(move);
-    }
-
-    public List<Move> getMoves() {
-        return Collections.unmodifiableList(moves);
-    }
-
-    @Override
-    public String toString() {
-        return "Zombie with current position " + getPosition().toString();
     }
 
     /**
@@ -42,7 +34,7 @@ public class Zombie extends ACreature {
      * @param grid the grid that the zombie is exploring
      * @return the list of newly created zombies
      */
-    public List<Zombie> explore(final WorldGrid grid) {
+    public List<Zombie> explore(final World grid) {
         ArrayList<Zombie> newZombies = newArrayList();
         this.getMoves().forEach(m -> {
             LOG.debug("Moving zombie {}", m.getFirstChar());
@@ -53,7 +45,7 @@ public class Zombie extends ACreature {
 
             }
         });
-        LOG.debug("{} gained {} points", this.toString(), points);
+        LOG.debug("Zombie {} gained {} points", this.toString(), points);
         return newZombies;
     }
 
@@ -61,13 +53,17 @@ public class Zombie extends ACreature {
         this.points++;
     }
 
-    private void move(Move move, WorldGrid worldGrid) {
+    private void move(Move move, World world) {
         this.setPosition(
                 Position.of(
-                        Math.floorMod(getXPosition() + move.getXSteps(), worldGrid.getXBoundary()),
-                        Math.floorMod(getYPosition() + move.getYSteps(), worldGrid.getYBoundary())
+                        Math.floorMod(getXPosition() + move.getXSteps(), world.getXBoundary()),
+                        Math.floorMod(getYPosition() + move.getYSteps(), world.getYBoundary())
                 )
         );
+    }
+
+    public ImmutableList<Move> getMoves() {
+        return ImmutableList.copyOf(moves);
     }
 
     public int getPoints() {

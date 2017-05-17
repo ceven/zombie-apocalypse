@@ -3,15 +3,13 @@ package world;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static java.lang.String.format;
+public class WorldCase {
 
-public class WorldGridCase {
-
-    private static final Logger LOG = LoggerFactory.getLogger(WorldGridCase.class);
+    private static final Logger LOG = LoggerFactory.getLogger(WorldCase.class);
 
     private CaseType caseType = CaseType.NO_LIVING_CREATURE;
 
-    WorldGridCase() {
+    WorldCase() {
 
     }
 
@@ -37,6 +35,6 @@ public class WorldGridCase {
 
     @Override
     public String toString() {
-        return format("Case of type %s", caseType.name());
+        return caseType.name();
     }
 }
