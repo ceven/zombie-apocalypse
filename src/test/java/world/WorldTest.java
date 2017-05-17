@@ -22,13 +22,50 @@ public class WorldTest {
 
     @Test
     public void shouldSkipAddingLivingCreatureOutOfWorldBoundaries() {
-        LivingCreature creature = new LivingCreature(Position.of(-1, -6));
+        Position position = Position.of(-1, -6);
+        LivingCreature creature = new LivingCreature(position);
         Assert.assertFalse(world.addToWorld(creature));
     }
 
     @Test
     public void shouldAddLivingCreatureToWorldWhenWithinWorldBoundaries() {
-        LivingCreature creature = new LivingCreature(Position.of(1, 2));
+        Position position = Position.of(1, 2);
+        LivingCreature creature = new LivingCreature(position);
         Assert.assertTrue(world.addToWorld(creature));
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldThrowExceptionWhenMutatingAndPositionOutOfWorldBoundaries() {
+        Position position = Position.of(-1, 2);
+        world.mutate(position);
+    }
+
+    @Test
+    public void hasLivingCreatureShouldBeFalse() {
+        Position position = Position.of(1, 2);
+        Assert.assertFalse(world.hasLivingCreature(position));
+    }
+
+    @Test
+    public void hasLivingCreatureShouldBeTrue() {
+        Position position = Position.of(1, 2);
+        LivingCreature creature = new LivingCreature(position);
+        world.addToWorld(creature);
+        Assert.assertTrue(world.hasLivingCreature(position));
+    }
+
+    @Test
+    public void shouldMutateCaseWithLivingCreature() {
+        Position position = Position.of(1, 2);
+        LivingCreature creature = new LivingCreature(position);
+        world.addToWorld(creature);
+        Assert.assertTrue(world.mutate(position));
+    }
+
+    @Test
+    public void shouldNotMutateCaseWithoutLivingCreature() {
+        Position position = Position.of(1, 2);
+        Assert.assertFalse(world.mutate(position));
+    }
+
 }

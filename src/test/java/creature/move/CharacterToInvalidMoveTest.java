@@ -1,3 +1,5 @@
+package creature.move;
+
 import creature.Move;
 import org.junit.Test;
 

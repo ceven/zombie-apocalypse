@@ -12,6 +12,7 @@ import world.World;
 import world.WorldBuilder;
 
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
@@ -38,7 +39,11 @@ public class InputFileReader {
     private static final Pattern PATTERN_GRID_SIZE = Pattern.compile("^\\d+$");
 
     public static ZombieApocalypse createZombieApocalypse(final String filePath) throws Exception {
-        List<String> lines = Files.readAllLines(Paths.get(filePath));
+        if (filePath == null) {
+            throw new IllegalArgumentException("File path should not be null");
+        }
+        Path path = Paths.get(filePath);
+        List<String> lines = Files.readAllLines(path);
         if (lines.size() != 4) {
             throw new IllegalStateException(
                     format("Wrong file format: expected 4 lines for file but got %s lines", lines.size())

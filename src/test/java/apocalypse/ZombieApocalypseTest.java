@@ -1,7 +1,5 @@
-package acceptance;
+package apocalypse;
 
-import apocalypse.ApocalypseOutcome;
-import apocalypse.ZombieApocalypse;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import creature.LivingCreature;
@@ -17,7 +15,7 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
-public class WorldInfectionTest {
+public class ZombieApocalypseTest {
 
     private static final int WORLD_GRID_SIZE = 4;
 
