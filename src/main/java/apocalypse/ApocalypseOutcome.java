@@ -9,7 +9,7 @@ import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
 
-public class ApocalypseOutcome {
+public final class ApocalypseOutcome {
 
     private static final Logger LOG = LoggerFactory.getLogger(ApocalypseOutcome.class);
 

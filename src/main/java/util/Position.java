@@ -16,8 +16,16 @@ public final class Position {
         return xCoordinate;
     }
 
+    public void setxCoordinate(int xCoordinate) {
+        this.xCoordinate = xCoordinate;
+    }
+
     public int getyCoordinate() {
         return yCoordinate;
+    }
+
+    public void setyCoordinate(int yCoordinate) {
+        this.yCoordinate = yCoordinate;
     }
 
     public static Position of(int x, int y) {

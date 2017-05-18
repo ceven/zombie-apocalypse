@@ -28,15 +28,19 @@ public class InputFileReader {
 
     private static final Logger LOG = LoggerFactory.getLogger(InputFileReader.class);
 
-    private static final Pattern PATTERN_SINGLE_POSITION = Pattern.compile("^(\\(\\d+,\\d+\\))$");
+    private static final String POSITION_PATTERN_STR = "\\(\\d+,\\d+\\)";
 
-    private static final Pattern PATTERN_SINGLE_POSITION_ANYWHERE = Pattern.compile("(\\(\\d+,\\d+\\))");
+    private static final Pattern PATTERN_SINGLE_POSITION = Pattern.compile("^" + POSITION_PATTERN_STR + "$");
 
-    private static final Pattern PATTERN_POSITIONS = Pattern.compile("^(\\(\\d+,\\d+\\))+$");
+    private static final Pattern PATTERN_SINGLE_POSITION_ANYWHERE = Pattern.compile("(" + POSITION_PATTERN_STR + ")");
+
+    private static final Pattern PATTERN_POSITIONS = Pattern.compile("^(" + POSITION_PATTERN_STR + ")+$");
 
     private static final Pattern PATTERN_MOVES = Pattern.compile("^[UDLRudlr]+$");
 
     private static final Pattern PATTERN_GRID_SIZE = Pattern.compile("^\\d+$");
+
+    private static final Pattern PATTERN_DIGIT = Pattern.compile("(\\d)+");
 
     public static ZombieApocalypse createZombieApocalypse(final String filePath) throws Exception {
         if (filePath == null) {
@@ -119,19 +123,20 @@ public class InputFileReader {
     }
 
     private static Optional<Position> getPosition(final String str) {
-        //FIXME dodgy - should find way to convert (1,2) to pos
-        if (str == null || str.length() != 5) {
+        Matcher matcher = PATTERN_DIGIT.matcher(str);
+        Integer x = null, y = null;
+        while (matcher.find() && (x == null || y == null)) {
+            if (x == null) {
+                x = Integer.parseInt(matcher.group());
+            } else {
+                y = Integer.parseInt(matcher.group());
+            }
+        }
+        if (x == null || y == null) {
+            LOG.warn("Cannot build position from input string \"{}\" ; missing coordinate(s). x = {}, y = {}", str, x, y);
             return Optional.empty();
         }
-        try {
-            return Optional.of(
-                    Position.of(
-                            Integer.parseInt(str.substring(1, 2)),
-                            Integer.parseInt(str.substring(3, 4))
-                    )
-            );
-        } catch (Exception e) {
-            return Optional.empty();
-        }
+        LOG.info("Creating position [{}, {}] from input string \"{}\"", x, y, str);
+        return Optional.of(Position.of(x, y));
     }
 }

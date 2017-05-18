@@ -24,7 +24,7 @@ public class Zombie extends ACreature {
      * Move this Zombie around grid and return new zombies count
      *
      * @param world the world that the zombie is exploring
-     * @param moves
+     * @param moves the sequence of moves the zombie will accomplish
      * @return the list of newly created zombies
      */
     public List<Zombie> explore(final World world, final List<Move> moves) {
@@ -51,11 +51,9 @@ public class Zombie extends ACreature {
     }
 
     private void move(final World world, final Move move) {
-        this.setPosition(
-                Position.of(
-                        Math.floorMod(getXPosition() + move.getXSteps(), world.getXBoundary()),
-                        Math.floorMod(getYPosition() + move.getYSteps(), world.getYBoundary())
-                )
+        this.updatePosition(
+                Math.floorMod(getXPosition() + move.getXSteps(), world.getXBoundary()),
+                Math.floorMod(getYPosition() + move.getYSteps(), world.getYBoundary())
         );
     }
 

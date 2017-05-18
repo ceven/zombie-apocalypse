@@ -14,8 +14,9 @@ public abstract class ACreature {
         return position;
     }
 
-    void setPosition(Position position) {
-        this.position = position;
+    void updatePosition(int newX, int newY) {
+        this.position.setxCoordinate(newX);
+        this.position.setyCoordinate(newY);
     }
 
     @Override

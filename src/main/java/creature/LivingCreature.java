@@ -9,8 +9,7 @@ public class LivingCreature extends ACreature {
     }
 
     @Override
-    void setPosition(Position position) {
+    void updatePosition(int newX, int newY) {
         throw new UnsupportedOperationException("Cannot change position of a living creature");
     }
-
 }
