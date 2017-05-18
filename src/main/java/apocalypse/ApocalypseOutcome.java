@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import util.Position;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.google.common.collect.Lists.newArrayList;
 
@@ -36,5 +37,16 @@ public final class ApocalypseOutcome {
 
     public ImmutableList<Position> getZombiePositions() {
         return ImmutableList.copyOf(zombiePositions);
+    }
+
+    @Override
+    public String toString() {
+        String scoreStr = "zombies score: " + getScore();
+        String zombiesPositions = "zombies positions: " +
+                getZombiePositions()
+                        .stream()
+                        .map(Position::toString)
+                        .collect(Collectors.joining(" "));
+        return scoreStr + "\n" + zombiesPositions;
     }
 }

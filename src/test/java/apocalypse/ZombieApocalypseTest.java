@@ -13,6 +13,7 @@ import world.WorldBuilder;
 
 import java.util.List;
 
+import static com.google.common.collect.Lists.newArrayList;
 import static java.util.stream.Collectors.toList;
 
 public class ZombieApocalypseTest {
@@ -26,8 +27,9 @@ public class ZombieApocalypseTest {
         ImmutableList<Move> moves = ImmutableList.copyOf(
                 Lists.charactersOf("DLUURR").stream().map(Move::getMove).collect(toList())
         );
+        List<LivingCreature> livingCreatures = createExampleLivingCreatures();
 
-        ZombieApocalypse zombieApocalypse = new ZombieApocalypse(world, firstZombie, moves);
+        ZombieApocalypse zombieApocalypse = new ZombieApocalypse(world, firstZombie, moves, livingCreatures);
 
         ApocalypseOutcome apocalypseOutcome = zombieApocalypse.spreadVirus();
 
@@ -44,18 +46,20 @@ public class ZombieApocalypseTest {
     }
 
     /**
+     * @return the set of living creatures as provided in the problem description
+     */
+    private List<LivingCreature> createExampleLivingCreatures() {
+        return newArrayList(
+                new LivingCreature(Position.of(0, 1)),
+                new LivingCreature(Position.of(1, 2)),
+                new LivingCreature(Position.of(3, 1))
+        );
+    }
+
+    /**
      * @return the grid as provided in the problem description
      */
     private static World createExampleWorldGrid() {
-        World world = new WorldBuilder().ofWidth(WORLD_GRID_SIZE).ofHeight(WORLD_GRID_SIZE).build();
-        LivingCreature c1 = new LivingCreature(Position.of(0, 1));
-        LivingCreature c2 = new LivingCreature(Position.of(1, 2));
-        LivingCreature c3 = new LivingCreature(Position.of(3, 1));
-
-        world.addToWorld(c1);
-        world.addToWorld(c2);
-        world.addToWorld(c3);
-
-        return world;
+        return new WorldBuilder().ofWidth(WORLD_GRID_SIZE).ofHeight(WORLD_GRID_SIZE).build();
     }
 }

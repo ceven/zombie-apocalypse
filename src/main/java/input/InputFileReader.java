@@ -55,12 +55,12 @@ public class InputFileReader {
         }
 
         World world = createWorld(lines.get(0));
-        getLivingCreatures(lines.get(2)).forEach(world::addToWorld);
+        List<LivingCreature> livingCreatures = getLivingCreatures(lines.get(2));
 
         Zombie zombie = getZombie(lines.get(1));
         List<Move> zombieMoves = getMoves(lines.get(3));
 
-        return new ZombieApocalypse(world, zombie, zombieMoves);
+        return new ZombieApocalypse(world, zombie, zombieMoves, livingCreatures);
     }
 
     private static World createWorld(final String input) throws Exception {
@@ -105,7 +105,7 @@ public class InputFileReader {
         Matcher matcher = pattern.matcher(str);
         if (matcher.matches()) {
             String match = matcher.group();
-            LOG.info("Found a match for string {} and pattern {} : {}", str, pattern.toString(), match);
+            LOG.debug("Found a match for string {} and pattern {} : {}", str, pattern.toString(), match);
             return Optional.of(match);
         } else {
             LOG.warn("Did not find a match for string {} and pattern {}", str, pattern.toString());
@@ -136,7 +136,7 @@ public class InputFileReader {
             LOG.warn("Cannot build position from input string \"{}\" ; missing coordinate(s). x = {}, y = {}", str, x, y);
             return Optional.empty();
         }
-        LOG.info("Creating position [{}, {}] from input string \"{}\"", x, y, str);
+        LOG.debug("Creating position [{}, {}] from input string \"{}\"", x, y, str);
         return Optional.of(Position.of(x, y));
     }
 }

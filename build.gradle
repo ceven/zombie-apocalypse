@@ -21,7 +21,7 @@ dependencies {
 
 // run 'gradle run' in CLI to run the simulation and see logs
 apply plugin: 'application'
-mainClassName = "MainSimulation"
+mainClassName = "Main"
 
 test {
     testLogging {

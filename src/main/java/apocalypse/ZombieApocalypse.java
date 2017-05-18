@@ -1,5 +1,7 @@
 package apocalypse;
 
+import com.google.common.collect.ImmutableList;
+import creature.LivingCreature;
 import creature.Move;
 import creature.Zombie;
 import org.slf4j.Logger;
@@ -17,13 +19,16 @@ public class ZombieApocalypse {
     private final World world;
     private final Zombie firstZombie;
     private final List<Move> moves;
+    private final List<LivingCreature> livingCreatures;
     private boolean hasRun;
 
-    public ZombieApocalypse(World world, Zombie firstZombie, List<Move> moves) {
+    public ZombieApocalypse(World world, Zombie firstZombie, List<Move> moves, List<LivingCreature> livingCreatures) {
         this.world = world;
         this.firstZombie = firstZombie;
         this.moves = moves;
         this.hasRun = false;
+        this.livingCreatures = livingCreatures;
+        livingCreatures.forEach(world::addToWorld);
     }
 
     public ApocalypseOutcome spreadVirus() {
@@ -53,5 +58,9 @@ public class ZombieApocalypse {
 
     public List<Move> getMoves() {
         return moves;
+    }
+
+    public ImmutableList<LivingCreature> getLivingCreatures() {
+        return ImmutableList.copyOf(livingCreatures);
     }
 }
