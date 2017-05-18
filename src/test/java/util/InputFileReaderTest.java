@@ -1,9 +1,7 @@
-package apocalypse;
+package util;
 
-import creature.Move;
-import input.InputFileReader;
+import apocalypse.ZombieApocalypse;
 import org.junit.Test;
-import util.Position;
 import world.World;
 
 import java.util.List;

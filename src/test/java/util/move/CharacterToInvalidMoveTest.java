@@ -1,7 +1,7 @@
-package creature.move;
+package util.move;
 
-import creature.Move;
 import org.junit.Test;
+import util.Move;
 
 public class CharacterToInvalidMoveTest {
 

@@ -22,12 +22,12 @@ public final class ApocalypseOutcome {
         this.zombiePositions = newArrayList();
     }
 
-    public void add(final Position position, final int points) {
+    public void add(final Position zombiePosition, final int points) {
         if (points < 0) {
             LOG.warn("Negative points [{}] for zombie with final position [{}] will be added to final outcome",
-                    points, position.toString());
+                    points, zombiePosition.toString());
         }
-        this.zombiePositions.add(position);
+        this.zombiePositions.add(zombiePosition);
         this.score += points;
     }
 

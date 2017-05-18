@@ -2,10 +2,10 @@ package apocalypse;
 
 import com.google.common.collect.ImmutableList;
 import creature.LivingCreature;
-import creature.Move;
 import creature.Zombie;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import util.Move;
 import world.World;
 
 import java.util.LinkedList;
@@ -31,7 +31,13 @@ public class ZombieApocalypse {
         livingCreatures.forEach(world::addToWorld);
     }
 
-    public ApocalypseOutcome spreadVirus() {
+    /**
+     * Run a full simulation of zombie apocalypse, starting with the first zombie spreading the virus
+     *
+     * @return the outcome of this zombie apocalypse
+     * @throws IllegalStateException if this method has already been called
+     */
+    public ApocalypseOutcome spreadVirus() throws IllegalStateException {
         if (hasRun) {
             throw new IllegalStateException("ZombieApocalypse has already run");
         }

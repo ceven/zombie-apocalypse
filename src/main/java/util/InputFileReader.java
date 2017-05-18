@@ -1,13 +1,11 @@
-package input;
+package util;
 
 import apocalypse.ZombieApocalypse;
 import com.google.common.collect.Lists;
 import creature.LivingCreature;
-import creature.Move;
 import creature.Zombie;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import util.Position;
 import world.World;
 import world.WorldBuilder;
 

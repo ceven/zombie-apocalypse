@@ -1,10 +1,10 @@
-package creature.move;
+package util.move;
 
-import creature.Move;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import util.Move;
 
 import java.util.Arrays;
 import java.util.Collection;

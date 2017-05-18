@@ -47,11 +47,17 @@ public class World {
         }
     }
 
+    /**
+     * If the area of the world defined by the position in parameter contains a living creature, turn it into a zombie
+     *
+     * @param position the position of the area considered in the world
+     * @return true if a living creature lives in this area
+     * @throws IllegalArgumentException if the position is not contained in the world
+     */
     public boolean mutate(final Position position) throws IllegalArgumentException {
         Optional<WorldArea> worldCase = this.getCase(position);
         if (!worldCase.isPresent()) {
             throw new IllegalArgumentException("Out of bounds!");
-
         }
         return worldCase.get().mutate();
     }

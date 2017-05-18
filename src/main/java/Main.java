@@ -1,6 +1,6 @@
 import apocalypse.ApocalypseOutcome;
 import apocalypse.ZombieApocalypse;
-import input.InputFileReader;
+import util.InputFileReader;
 
 import java.util.stream.Collectors;
 
@@ -12,7 +12,7 @@ public class Main {
                 InputFileReader.createZombieApocalypse("src/test/file/world-infection-1.txt");
 
         System.out.println("\n----- ZOMBIE APOCALYPSE STARTED !!! -----\n");
-        System.out.println("\n----- INPUT -----\n");
+        System.out.println("----- INPUT -----\n");
         printInput(zombieApocalypse);
 
         ApocalypseOutcome apocalypseOutcome = zombieApocalypse.spreadVirus();
