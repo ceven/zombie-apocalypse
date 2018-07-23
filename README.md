@@ -24,12 +24,13 @@ This project allows to simulate the spread of a virus, carried by zombies, over 
 This project requires Java 8. I use gradle (3.3) to manage dependencies, run the "Zombie Apocalypse" simulation and run tests. You do not
  need to install gradle yourself ; please just follow the instructions below to download and run the code:
 
- - Open a terminal prompt and clone this repository in the location of your choice: `git clone 
-git@bitbucket.org:caroline_even/zombie-apocalypse.git`
- - Navigate to the project root
- - Type `./gradlew build` to build the project
- - Type `./gradlew test` to run unit tests (you may need to type `./gradlew clean` first)
- - Type `./gradlew run` in a terminal prompt to run the simulation. Logs will be printed in the console
+ * Open a terminal prompt and clone this repository in the location of your choice:
+   - From bitbucket: `git clone git@bitbucket.org:caroline_even/zombie-apocalypse.git`
+   - From Github: `git clone https://github.com/ceven/zombie-apocalypse.git`
+ * Navigate to the project root
+ * Type `./gradlew build` to build the project
+ * Type `./gradlew test` to run unit tests (you may need to type `./gradlew clean` first)
+ * Type `./gradlew run` in a terminal prompt to run the simulation. Logs will be printed in the console
  
 The entry point is the class `Main.java` located in the `src/main/java` folder.
  
